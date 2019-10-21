@@ -12,22 +12,26 @@ var hunger = 0;
 //var building = 0;
 
 // Inventary:
-var food = 0;
-var materials = 0;
-var clothes = 0; // level of clothes
-var house = 0; // level of house
+var food = 0; // This code is not used yet
+var materials = 0; // This code is not used yet
+var clothes = 0; // level of clothes // This code is not used yet
+var house = 0; // level of house // This code is not used yet
 
 // Monsters stage:
-var monster = 0; // Monster damage will increase 
+var monster = 0; // Monster damage will increase // This code is not used yet
 // depending on the character's health level.
 
-var monsters = ["Evil wolf", "Evil bear", "Evil snake",];
-var drop = ["food", "materials",];
+var monsters = ["Evil wolf", "Evil bear", "Evil snake",]; // This code is not used yet
+var drop = ["food", "materials",]; // This code is not used yet
 
-var eventsType = ["findFood","findMaterials","findMonster","findNoting",]
+var eventsType = ["findFood","findMaterials","findMonster","findNoting",] // This code is not used yet
 
-//new eventObj{
-    let findFood = "You find a some food.";
+//new eventObj{ 
+// I don't know how to make a dictionary in js. 
+// I wanted to trigger an event with a random indication of the type
+// of event and selecting a message according to its type.
+
+    let findFood = "You find a some food."; // This code is not used yet
 //    findMaterials:"You find a few materials."
 //    findMonster:"You meet a monster."
 //    findNoting:"You find noting and good."
