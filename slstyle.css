@@ -95,7 +95,33 @@ div.greenTable {
     font-family: arial, hevletica, serif;
 }
 
-.small_circle{
+.searchCounter{ /* view counter */
+    position: absolute;
+    /*z-index: 1;*/
+    top: 47px;
+    left: 45px;
+    height: 80px;
+    width: 80px;
+    border: 1px #b38208 solid;
+    border-radius: 45px 45px 45px 5px;
+    text-align: center;
+    line-height: 90px; /* center vertically */
+    background-color: #0c3321aa;
+    font-size: 30px;
+    transform: rotate(36deg);   /* 0 */
+    /*transform: rotate(18deg);*/   /* 1 */
+    /*transform: rotate(0deg);*/    /* 2 */
+    /*transform: rotate(-18deg);*/  /* 3 */
+    /*transform: rotate(-36deg);*/  /* 4 */
+    /*transform: rotate(-54deg);*/  /* 5 */
+    /*transform: rotate(-72deg);*/  /* 6 */
+    /*transform: rotate(-90deg);*/  /* 7 */
+    /*transform: rotate(-108deg);*/ /* 8 */
+    /*transform: rotate(-126deg);*/ /* 9 */
+    
+}
+
+.smallCircle{
     position: absolute;
     top: 38px;
     left: 37px;
@@ -158,7 +184,7 @@ div.greenTable {
     display: block;
     position: absolute;
     z-index: 5;
-    height: 90%;
+    /*height: 90%;*/
     width: 90%;
     margin: auto;
     padding: 10px;
@@ -166,6 +192,7 @@ div.greenTable {
     background: linear-gradient(to top, #596900, #005000);
     border-radius: 10px;
     text-align: center;
+    color: #b38208;
 }
 
 .msg_design{

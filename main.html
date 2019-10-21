@@ -1,14 +1,26 @@
-<!-- todo
+<!-- todo:
 + Выровнять верхние блоки.
 + Настроить увеличение дней по кнопке поиска (1 день = 10 нажатий)
-- Добавить поле истории сообщений (внизу экрана.)
-- Переписать круг контроля без трансформации увеличения (сделать без transform: scale(1.7);)
-+ Сделать вывод информации (инвентарь, профиль) в модальное окно.
-- Модальное окно закрывается по клику на любом месте.
-- Сделать понятный счётчик поисков в сутки (10 поисков = 1 день).
++ Сделать модальное окно для вывода информации (сделал почти модальное - див на весь экран, под ним нажимаются кнопки).
++ Модальное окно закрывается по клику на любом месте.
 + Сделать эмотиконы кодами символов, а не символами.
++ Сделал репозиторий и ссылку на github.
++ Сделать понятный счётчик поисков в сутки (10 поисков = 1 день).
+- Сделать окно сообщений реально модальным, чтобы кнопки под ним не нажимались!
+- Добавить поле истории сообщений (внизу экрана).
+- Сделать вывод информации (инвентарь, профиль) в модальное окно.
+- Сделать увеличение голода на 1 по прошествие 1 дня.
+- (!)Сделать рандомную генерацию событий при поиске.
+- Сделать окно производства продукции из материалов.
+- Сделать приветствие вводящее в курс событий. (продумать ЛОР.)
+- Переписать круг контроля без трансформации увеличения (сделать без transform: scale(1.7);). В самую последнюю очередь.
 -->
 <!-- GITHUB REFERENCE: https://github.com/logoner/Forest_quest_web_clicker -->
+<!-- Sololearn REFERENCE: https://code.sololearn.com/W6nsm3RC4hxP -->
+
+<!-- Produced by Vladimir Goman for SoloLearn app! -->
+
+<!-- atention! the code is not finished! -->
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -21,8 +33,8 @@
 
 <body>
     <div id="message" style="display: none;" onclick="CloseWindow()">
+        <h1 id="msg_title">Title</h1>
         <div class="msg_design">
-            <h1 id="msg_title">Title</h1>
             <p id="msg">
                 Hello world!
             </p>
@@ -39,17 +51,15 @@
                     <div class="divTableHead">&#128230;</div>
                     <div class="divTableHead">&#129355;</div>
                     <div class="divTableHead">&#127968;</div>
-                    <!-- Возможно стоит показать ГОЛОД  -->
                 </div>
             </div>
             <div class="divTableBody">
                 <div class="divTableRow">
-                    <div class="divTableCell" id="health">0</div>
+                    <div class="divTableCell" id="health">5</div>
                     <div class="divTableCell" id="hunger">0</div>
-                    <div class="divTableCell">0</div>
-                    <div class="divTableCell">0</div>
-                    <div class="divTableCell">0</div>
-                    <!-- Возможно стоит показать ГОЛОД  -->
+                    <div class="divTableCell" id="materials">0</div>
+                    <div class="divTableCell" id="clothes">0</div>
+                    <div class="divTableCell" id="house">0</div>
                 </div>
             </div>
         </div>
@@ -64,7 +74,8 @@
             <div class="trapezoid three" onclick="MakeProduction()">&#128736;</div>
             <div class="trapezoid four" onclick="ViewInventory()">&#128188;</div>
             <div class="trapezoid five" onclick="SleepOneDay()">&#128164;</div>
-            <div class="small_circle" onclick="SearchForest()">&#128269;</div>
+            <div class="searchCounter" id="searchPDay"></div>
+            <div class="smallCircle" onclick="SearchForest()">&#128269;</div>
         </div>
     </div>
 </body>
