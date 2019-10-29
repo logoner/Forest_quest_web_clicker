@@ -179,7 +179,7 @@ div.greenTable {
 }
 
 .three {
-	top: 0px;
+	/*top: 0px;*/
 	left: 59px;
 }
 
@@ -198,7 +198,7 @@ div.greenTable {
 
 /* Message window */
 
-#modal {
+.modal {
 	background-color: #000000aa;
 	height: 100%;
 	width: 100%;
@@ -237,6 +237,54 @@ button {
 	margin: auto;
 }
 
+.button {
+	font-size: 3em;
+	color: #005000;
+	text-shadow: 1px 1px 2px black, 0 0 1em red;
+}
+
+
+/* production window */
+
+modal2 {
+	background-color: #000000aa;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 5;
+	/*display: block;*/
+}
+
+#production {
+	display: block;
+	position: absolute;
+	z-index: 5;
+	/*height: 90%;*/
+	width: 90%;
+	margin: auto;
+	top: 30%;
+	padding: 10px;
+	border: ridge #b38208 3px;
+	background: linear-gradient(to top, #596900, #005000);
+	border-radius: 10px;
+	text-align: center;
+	color: #b38208;
+}
+
+
+/*.prod_design {
+    border: ridge #b38208 3px;
+    border-radius: 10px;
+    background: black;
+    color: #b38208;
+    margin-bottom: 10px;
+}*/
+
+
+/* end production window */
+
 .history {
 	position: relative;
 	top: 133px;
@@ -249,6 +297,9 @@ button {
 	font-size: 0.8em;
 	padding: 10px;
 	overflow-y: scroll;
+	max-height: 100px;
+	/*overflow:hidden;*/
+	/*margin-top:-20px;*/
 	/*
     background: linear-gradient(to bottom, #020 0%, #352 66%, #010 100%);
     */
@@ -257,9 +308,46 @@ button {
     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0.01)), color-stop(13%, rgba(0,0,0,0.14)), color-stop(21%, rgba(0,0,0,0.22)), color-stop(28%, rgba(0,0,0,0.29)), color-stop(49%, rgba(0,0,0,0.5)), color-stop(100%, rgba(0,0,0,1)));*/
 }
 
-.histShadow {
-	position: relative;
-	height: 10px;
-	background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.14) 13%, rgba(0, 0, 0, 0.22) 21%, rgba(0, 0, 0, 0.29) 28%, rgba(0, 0, 0, 0.5) 49%, rgba(0, 0, 0, 1) 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.01)), color-stop(13%, rgba(0, 0, 0, 0.14)), color-stop(21%, rgba(0, 0, 0, 0.22)), color-stop(28%, rgba(0, 0, 0, 0.29)), color-stop(49%, rgba(0, 0, 0, 0.5)), color-stop(100%, rgba(0, 0, 0, 1)));
+
+/*.history:before{
+    content:"";
+    display:block;
+    height:20px;
+    position:relative;
+    top:80px;
+    background-image:linear-gradient(to bottom, rgba(000, 000, 000, 0), #000 75%)
+}*/
+
+
+/*.histShadow {
+    position: relative;
+    height: 10px;
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.14) 13%, rgba(0, 0, 0, 0.22) 21%, rgba(0, 0, 0, 0.29) 28%, rgba(0, 0, 0, 0.5) 49%, rgba(0, 0, 0, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.01)), color-stop(13%, rgba(0, 0, 0, 0.14)), color-stop(21%, rgba(0, 0, 0, 0.22)), color-stop(28%, rgba(0, 0, 0, 0.29)), color-stop(49%, rgba(0, 0, 0, 0.5)), color-stop(100%, rgba(0, 0, 0, 1)));
+}*/
+
+
+/* new ids */
+
+
+/*
+#modal2
+#production
+#prod_title
+.prod_design
+#prod
+*/
+
+.prodButton {
+	border: solid black;
+	font-size: 2em;
+	font-weight: bold;
+	color: #e74c3c;
+	text-align: center;
+	background: linear-gradient(to bottom, #020 0%, #352 66%, #010 100%);
+	/*background-color: #3D453C;*/
+	border: ridge #b38208 3px;
+	border-radius: 10px;
+	padding: 9px 0px;
+	line-height: 2;
 }

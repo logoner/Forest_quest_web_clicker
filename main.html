@@ -1,7 +1,7 @@
 <!-- todo:
 + Выровнять верхние блоки.
 + Настроить увеличение дней по кнопке поиска (1 день = 10 нажатий)
-+ Сделать модальное окно для вывода информации (сделал почти модальное - див на весь экран, под ним нажимаются кнопки).
++ Сделать модальное окно для вывода информации (сделал почти модальное: див на весь экран, под ним нажимаются кнопки).
 + Модальное окно закрывается по клику на любом месте.
 + Сделать эмотиконы кодами символов, а не символами.
 + Сделал репозиторий и ссылку на github.
@@ -10,17 +10,26 @@
 + Добавить поле истории сообщений (внизу экрана).
 + Сделать увеличение голода на 1 по прошествие 1 дня.
 + Сделать приветствие вводящее в курс событий. (продумать ЛОР.)
-- Изменить стиль кнлпки закрытия окна сообщений.
++ Изменить стиль кнопки закрытия окна сообщений.
++ Сделать рандомную генерацию событий при поиске.
++ Сделать окно производства продукции из материалов (make craft function).
+************************************
++ Исправить стиль окна продукции.
+- Добавить в стилях границы блока context и перенести стиль фона из блока body. Сделать страницу только под вертикальную ориентацию экрана.
+- Продумать расположение элементов под горизонтальный экран. Сделать блок context подстраивающимся под положение экрана.
+- Исправить голод больше 100% без потери здоровья.
+- Исправить баланс голода/еды/сна.
+- Вывод в окно истории изменений статов и инвентаря.
+- Сделать окно Инвентаря и окно Профиля игрока.
 - добавить уход в тень текста в нижней части окна истории.
-- Ограничить истоию 20 последними строками.
+- Ограничить истоию 100 последними строками.
 - Сделать вывод информации (инвентарь, профиль) в модальное окно.
-+ Сделать увеличение голода на 1 по прошествие 1 дня.
-- (!)Сделать рандомную генерацию событий при поиске.
-- Сделать окно производства продукции из материалов (make craft function).
-+ Сделать приветствие вводящее в курс событий. (продумать ЛОР.)
+- (!)Срочно добавить прямую зависимость урона от количества десятидневных периодов и обратную от уровня одежды.. (Механика игры)
 - Переписать круг контроля без трансформации увеличения (сделать без transform: scale(1.7);). В самую последнюю очередь.
 -->
+
 <!-- GITHUB REFERENCE: https://github.com/logoner/Forest_quest_web_clicker -->
+
 <!-- Sololearn REFERENCE: https://code.sololearn.com/W6nsm3RC4hxP -->
 
 <!-- Produced by Vladimir Goman for SoloLearn app! -->
@@ -38,15 +47,33 @@
 </head>
 
 <body>
-    <div id="modal" style="display: none;">
-        <div id="message" onclick="CloseWindow()">
+    <div class="modal" id="modal" style="display: none;">
+        <div id="message" onclick="CloseMsgWindow()">
             <h1 id="msg_title">Title</h1>
             <div class="msg_design">
                 <p id="msg">
                     Hello world!
                 </p>
             </div>
-            <button onclick="CloseWindow()">Close</button>
+            <div class="button red_heart" onclick="CloseMsgWindow()">&times;</div>
+        </div>
+    </div>
+    <div class="modal" id="modal2" style="display: none;">
+        <div id="production">
+            <h1 id="prod_title">Title</h1>
+            <!--<div class="prod_design">-->
+
+            <strong class="prodButton" onclick="MakeClothes()">
+                       &#129355;
+                   </strong>&nbsp;- Use 10 &#128230;
+            <br />
+            <strong class="prodButton" onclick="MakeHouse()">
+                       &#127968;
+                   </strong>&nbsp;- Use 50 &#128230;
+            <br />
+            <br />
+            <!--</div>-->
+            <button onclick="CloseProdWindow()">Close</button>
         </div>
     </div>
     <div id="content">
@@ -86,8 +113,8 @@
             <div class="smallCircle" onclick="SearchForest()">&#128269;</div>
         </div>
         <div class="history" id="history">
-            Before this incident, you did not believe in traveling to other worlds. But everything happens for the first time. You have one hope - to live as many days as possible. Perhaps sco will save you.
-            <div class="histShadow"></div>
+            Before this incident, you did not believe in traveling to other worlds. But everything happens for the first time. You have one hope - to live as many days as possible. Maybe someone will save you soon.
+            <!--<div class="histShadow"></div>-->
         </div>
     </div>
 </body>
