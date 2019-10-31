@@ -12,33 +12,56 @@ var hunger = 0;
 
 // Inventary:
 var food = 0;
-var materials = 60;
+var materials = 0;
 
 // level of clothes
 var clothes = 0;
 
 // level of house
-var house = 0;
+var house = 0; // влияет на увеличение сытости во время еды и увеличение здоровья во время сна.
+// Eat(): house == 0;
+// food -= (1 + house); //(+1)
+// hunger -= (2 + house); //(-2)
+// health += (1 + house); //(+1)
+//
+// house == 1;
+// food -= (1 + house); //(+2)
+// hunger -= (2 + house); //(-3)
+// health += (1 + house); //(+2)
 
 // Monsters stage:
 var monsterpow = 1; // Monster damage will increase
 // depending on the character's health level.
-var defence = 0;
-var damage = 1;
-// damage = monsterpow - defence;
-// defance = clothes;
+//var damage = 1;
+// damage = monsterpow - clothes;
 
 // In this place, in my opinion, you need to change the damage level to 0, provided that the protection level is greater than the damage level.  But since my game code is not in a loop, I will put a check for this condition in the function SearchForest().
 
 // ********
-
+// Casual Events
 var monsters = ["Evil wolf", "Evil bear", "Evil snake", ];
+var lastMeeting; // последняя Встреча
+
 var drop = ["food", "materials", ];
-//var eventsType = ["findFood", "findMaterials", "findMonster", "findNoting", ]
 
 var searchResult = [monsters, drop, ];
 
 // functions:
+function CalcDamage(monsterpow, clothes, day){
+    let damage = 1;
+    
+    // Monster power increases by 1 every 10 days.
+    // In the first 10 days, the force is 1.
+    monsterpow = 1+Math.floor(day/10 );
+    //alert(monsterpow);
+    if (clothes < monsterpow) {
+        damage = monsterpow - clothes;
+    } else {
+        damage = 0;
+    }
+    
+    return damage;
+}
 
 function ViewMessage(msgTitle, message) {
     document.getElementById('modal').style.pointerEvents = 'auto';
@@ -59,7 +82,7 @@ function ViewProdWindow() {
 }
 
 function randomInteger(min, max) {
-    // получить случайное число от (min-0.5) до (max+0.5) 
+    // get a random number from (min-0.5) to (max + 0.5)
     let rand = min - 0.5 + Math.random() * (max - min + 1);
     return Math.round(rand);
 }
@@ -75,30 +98,44 @@ function CasualEvent() {
     //You have found food.  You found the materials.
 
     let newEvent = newSearch[randomInteger(0, newSearch.length - 1)];
+    
+    // place for the code for checking the coincidence of the current random meeting with the past (lastMeeting)
+    // if there is a match, then generate a new random meeting.
+    //alert("newEvent = " + newEvent);
+    //alert("lastMeeting = " + lastMeeting);
+    if (lastMeeting == newEvent) {
+        CasualEvent();
+        return;
+    } else {
+        lastMeeting = newEvent;
+    }
 
     if (newEvent == "food") {
-        ViewMessage("You have found " + newEvent, "Food is a particularly valuable thing. In addition, you are alone in the forest and there is no supermarket nearby."); //You have found food. 
-        food += 1;
+        let foodIncrement = randomInteger(1, 2);
+        food += foodIncrement;
+        // increment food from 1 to 2.
+        ViewMessage("You have found " + foodIncrement + " " + newEvent, "Food is a particularly valuable thing. In addition, you are alone in the forest and there is no supermarket nearby."); //You have found food.
+        
     } else if (newEvent == "materials") {
         ViewMessage("You found the " + newEvent, "As your grandfather said, there are no completely useless things."); //You found the materials.
 
         materials += 1;
-
-        let totalMaterials = document.getElementById('materials');
-
-        totalMaterials.innerHTML = materials;
+        SetParamert("materials", materials);
 
     } else {
+        // Meeting monsters
         ViewMessage("You met an " + newEvent, "Fresh scars will remind you of this meeting for a long time.");
-        // Срочно добавить прямую зависимость урона
-        // от количества десятидневных периодов и 
-        // обратную от уровня одежды.
-
-        health -= 1;
+        // Urgently add a direct dependence of damage
+        // on the strength of monsters (growing by 1
+        // every 10 days) and an inverse dependence on
+        // the level of clothes. (Solved!)
+        
+        health -= CalcDamage(monsterpow, clothes, day);
         // health = health - 1 * (1+(day/10))
         SetParamert("health", health);
 
-        hunger += 1;
+        hunger += monsterpow;
+        // the stronger the monsters, the greater the feeling of hunger.
         SetParamert("hunger", hunger);
 
 
@@ -171,18 +208,25 @@ function Eat() {
     if (food < 1) {
         ViewMessage("NO FOOD!", "And then you thought, where to find food?");
     } else if (hunger > 0) {
-        food -= 1;
-        hunger -= 1;
-        health += 1;
+        food -= (1 + house);
+        hunger -= (2 + house);
+        health += (1 + house);
+        if (hunger < 0){
+            hunger = 0;
+            SetParamert("hunger",hunger);
+            SetParamert("health",health);
+        }
     } else {
         ViewMessage("Eat food", "You looked at this piece of food and realized that you were so fed up that you could not eat a single piece.");
     }
 
-    var totalHunger = document.getElementById('hunger');
-    totalHunger.innerHTML = hunger;
+    //var totalHunger = document.getElementById('hunger');
+    //totalHunger.innerHTML = hunger;
+    SetParamert("hunger",hunger);
 
-    var totalHealth = document.getElementById('health');
-    totalHealth.innerHTML = health;
+    //var totalHealth = document.getElementById('health');
+    //totalHealth.innerHTML = health;
+    SetParamert("health",health);
 }
 
 
@@ -195,8 +239,8 @@ function SleepOneDay() {
     if (health < 1) {
         Gameover();
     } else if (hunger < 100) {
-        health += 1;
-        hunger += 10;
+        health += (1 + 2*house);
+        hunger += (5 - house);
         if (hunger > 100) {
             hunger = 100;
         }
@@ -245,7 +289,8 @@ function MakeClothes() {
 
         var msgwind = document.getElementById("modal2");
         msgwind.style.display = "none";
-
+        
+        // History entry
         var textHistory = document.getElementById("history");
         let message = "You used materials to improve your clothes. Current clothing level " + clothes;
         //Ты использовал материалы чтобы улучшить одежду.
@@ -282,8 +327,8 @@ function MakeHouse() {
 }
 
 function Gameover() {
-
-    let totalDay = document.getElementById('day');
+    
+    //let totalDay = document.getElementById('day');
     //var totalHealth = document.getElementById('health');
     //var totalHunger = document.getElementById('hunger');
 
@@ -291,7 +336,7 @@ function Gameover() {
     //totalHealth.innerHTML = health;
     //totalHunger.innerHTML = hunger;
 
-    day = totalDay.innerHTML;
+    //day = totalDay.innerHTML;
 
     let textDay;
     if (day == "1") {
@@ -302,36 +347,37 @@ function Gameover() {
     ViewMessage("The game is over. You are dead.", " Just put up with it.  Maybe you will be pleased that you were able to extend the " + day + textDay);
 
     // variabels:
-    var day = 0;
-    SetParamert("day", 0);
+    day = 0;
+    SetParamert("day", day);
 
-    var tendays = 0;
+    tendays = 0;
     //SetParamert("tendays", 0);
 
-    var health = 5;
-    SetParamert("health", 5);
+    health = 5;
+    SetParamert("health", health);
 
-    var hunger = 0;
-    SetParamert("hunger", 0);
+    hunger = 0;
+    SetParamert("hunger", hunger);
 
 
     // Inventary:
-    var food = 0;
+    food = 0;
 
 
-    var materials = 0;
-    SetParamert("materials", 0);
+    materials = 0;
+    SetParamert("materials", materials);
 
     // level of clothes
-    var clothes = 0;
-    SetParamert("clothes", 0);
+    clothes = 0;
+    SetParamert("clothes", clothes);
 
     // level of house
-    var house = 0;
-    SetParamert("house", 0);
+    house = 0;
+    SetParamert("house", house);
 
     // Monsters stage:
-    var monster = 0;
+    //monster = 0;
+    monsterpow = 1;
 
     //let texHistory = "Is it all going to happen again??? Before this incident, you did not believe in traveling to other worlds. But everything happens for the first time. You have one hope - to live as many days as possible. Maybe someone will save you soon."
     let historyAgain = document.getElementById('history');
